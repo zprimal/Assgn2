@@ -15,7 +15,7 @@ void printWelcomeMsg(){
 
 void printMenu(){
    printf("\n\n\n  | Name:  | Joshua Tan Jun Jie  |\n");
-   printf("  | ID:    | 6096839             |\n");
+   printf("  | ID:    | ███████             |\n");
    printf("=================================================\n");
    printf("       ---Welcome to 2D33 SpaceFleet!---\n");
    printf("=================================================\n");
