@@ -229,22 +229,30 @@ bool Rectangle::isPointOnShape(Vertex vtx){
       //Vertex tmpVTXArr[pointDist];
       if (XorY == "X" && pointX == aX) {
          for (int p = 0; p < pointDist; p++) {
-            if (pointY == aY+p) {
-               cout << "Entry [" << pointX << ":" << pointY << "]: " << aX << ":" << aY+p << endl;
-               return true;
-            } else if (pointY == bY+p) {
-               cout << "Entry [" << pointX << ":" << pointY << "]: " << aX << ":" << bY+p << endl;
-               return true;
+            if (aY < bY) {
+               if (pointY == aY+p) {
+                  cout << "Entry [" << pointX << ":" << pointY << "]: " << aX << ":" << aY+p << endl;
+                  return true;
+               }
+            } else if (aY > bY) {
+               if (pointY == bY+p) {
+                 cout << "Entry [" << pointX << ":" << pointY << "]: " << aX << ":" << bY+p << endl;
+                 return true;
+              }
             }
          }
       } else if (XorY == "Y" && pointY == aY) {
          for (int p = 0; p < pointDist; p++) {
-            if (pointX == aX+p) {
-               cout << "Entry [" << pointX << ":" << pointY << "]: " << aX+p << ":" << aY << endl;
-               return true;
-            } else if (pointX == bX+p) {
-               cout << "Entry [" << pointX << ":" << pointY << "]: " << bX+p << ":" << aY << endl;
-               return true;
+            if (aX < bX) {
+               if (pointX == aX+p) {
+                  cout << "Entry [" << pointX << ":" << pointY << "]: " << aX+p << ":" << aY << endl;
+                  return true;
+               }
+            } else if (aX > bX) {
+               if (pointX == bX+p) {
+                 cout << "Entry [" << pointX << ":" << pointY << "]: " << bX+p << ":" << aY << endl;
+                 return true;
+              }
             }
          }
       } else {
