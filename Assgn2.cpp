@@ -151,14 +151,17 @@ int computeAllArea(){
 }
 
 int printReport(){
+   printf("> printReport()\n");
    //TODO
 }
 
 int printSortedData(){
+   printf("> printSortedData()\n");
    //TODO
 }
 
 int printAllData(){
+   printf("> printAllData()\n");
    //TODO
    for (int i = 0; i < GS2Dcap; i++) {
       printf("Shape [%d]\n", i);
@@ -168,6 +171,7 @@ int printAllData(){
 }
 
 int isPoint(){
+   printf("> isPoint()\n");
    //TODO
    string isString;
    int isX, isY;
