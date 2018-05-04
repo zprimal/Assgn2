@@ -198,7 +198,6 @@ int isPoint(){
    }
    isY = stoi(isString);
 
-
    for (int i = 0; i < GS2Dcap; i++) {
       if (globalS2D[i]->isPointOnShape(Vertex(isX, isY))) {
          cout << "Point [" << isX << ", " << isY << "] is on " << globalS2D[i]->getName() << endl;
