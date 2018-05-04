@@ -17,7 +17,7 @@ void printMenu(){
    printf("\n\n\n  | Name:  | J█████ T██ J██ J██  |\n");
    printf("  | ID:    | ███████             |\n");
    printf("=================================================\n");
-   printf("       ---Welcome to 2D33 SpaceFleet!---\n");
+   printf("       ---Welcome to S2D SpaceFleet!---\n");
    printf("=================================================\n");
    printf(" 1. Add new data\n");
    printf(" 2. Compute Area of All Shapes\n");
@@ -200,7 +200,11 @@ int isPoint(){
 
 
    for (int i = 0; i < GS2Dcap; i++) {
-      globalS2D[i]->isPointOnShape(Vertex(isX, isY));
+      if (globalS2D[i]->isPointOnShape(Vertex(isX, isY))) {
+         cout << "Point [" << isX << ", " << isY << "] is on " << globalS2D[i]->getName() << endl;
+         return 0;
+      }
    }
-
+   cout << "Point [" << isX << ", " << isY << "] is not on any point which describes the side of a shape." << endl;
+   return 1;
 }
