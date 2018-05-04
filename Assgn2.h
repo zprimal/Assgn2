@@ -21,7 +21,8 @@ int computeAllArea();
 int printReport();
 int printAllData();
 int printSortedData();
-int isPoint();
+int isPointOn();
+int isPointIn();
 
 ShapeTwoD *globalS2D[100];
 

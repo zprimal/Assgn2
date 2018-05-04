@@ -24,8 +24,9 @@ void printMenu(){
    printf(" 3. Print Shape Report\n");
    printf(" 4. Print Shapes sorted according to warp\n");
    printf(" 5. Display All Shapes\n");
-   printf(" 6. Check if point is on/in a shape\n");
-   printf(" 7. Terminate Program\n");
+   printf(" 6. Check if point is on a shape\n");
+   printf(" 7. Check if point is in a shape\n");
+   printf(" 8. Terminate Program\n");
    printf("=================================================\n");
    printf(" Select an option: ");
 }
@@ -47,8 +48,10 @@ int startMenu(){
       } else if (menuChoice == "5") {
          printAllData();
       } else if (menuChoice == "6") {
-         isPoint();
+         isPointOn();
       } else if (menuChoice == "7") {
+         isPointIn();
+      } else if (menuChoice == "8") {
          runInt = 1;
          printf("--- Shutting down! ---\n");
          exit(0);
@@ -104,7 +107,7 @@ int addData(){
    Vertex addVTX[addNoVTX];
    printf("=== INFO: Enter coordinates in clockwise/anti-clockwise order ====\n");
    for (int i = 0; i < addNoVTX; i++) {
-      printf("Enter X%d coordinate\n", i);
+      printf("Enter X%d coordinate\n", i+1);
       getline(cin,addString);
       if (addString.empty() ){
          printf("No input detected.\n Returning to menu.\n");
@@ -116,7 +119,7 @@ int addData(){
       addX = stoi(addString);
       addString = "";
 
-      printf("Enter Y%d coordinate\n", i);
+      printf("Enter Y%d coordinate\n", i+1);
       getline(cin,addString);
       if (addString.empty() ){
          printf("No input detected.\n Returning to menu.\n");
@@ -170,8 +173,8 @@ int printAllData(){
    return 0;
 }
 
-int isPoint(){
-   printf("> isPoint()\n");
+int isPointOn(){
+   printf("> isPointOn()\n");
    //TODO
    string isString;
    int isX, isY;
@@ -205,5 +208,43 @@ int isPoint(){
       }
    }
    cout << "Point [" << isX << ", " << isY << "] is not on any point which describes the side of a shape." << endl;
+   return 1;
+}
+
+int isPointIn(){
+   printf("> isPointIn()\n");
+   //TODO
+   string isString;
+   int isX, isY;
+   printf("Enter X coordinate\n");
+   getline(cin,isString);
+   if (isString.empty() ){
+      printf("No input detected.\n Returning to menu.\n");
+      return 1;
+   } else if (((!isdigit(isString[0])) && (isString[0] != '-') && (isString[0] != '+'))) {
+      printf("Non-numeric characters detected.\n Returning to menu.");
+      return 1;
+   }
+   isX = stoi(isString);
+   isString = "";
+
+   printf("Enter Y coordinate\n");
+   getline(cin,isString);
+   if (isString.empty() ){
+      printf("No input detected.\n Returning to menu.\n");
+      return 1;
+   } else if (((!isdigit(isString[0])) && (isString[0] != '-') && (isString[0] != '+'))) {
+      printf("Non-numeric characters detected.\n Returning to menu.");
+      return 1;
+   }
+   isY = stoi(isString);
+
+   for (int i = 0; i < GS2Dcap; i++) {
+      if (globalS2D[i]->isPointInShape(Vertex(isX, isY))) {
+         cout << "Point [" << isX << ", " << isY << "] is on " << globalS2D[i]->getName() << endl;
+         return 0;
+      }
+   }
+   cout << "Point [" << isX << ", " << isY << "] is not on any point within a shape." << endl;
    return 1;
 }
