@@ -47,30 +47,10 @@ string Rectangle::getVertices(){
    return vtxString;
 }
 
-float Rectangle::computeArea(){
-   float rctArea = 0.0;
-   int j = noOfVertices-1;
-   for (int i = 0; i < noOfVertices; i++) {
-      rctArea += (vtxArray[j]->getVertexX() + vtxArray[i]->getVertexX()) * (vtxArray[j]->getVertexY() - vtxArray[i]->getVertexY());
-      j = i;
-   }
-
-   rctArea = abs(rctArea/2.0);
-   //TODO
-   return rctArea;
-}
-
-string Rectangle::toString(){
-   string allString = "";
-   allString = basicToString();
-   allString = allString + "\n" + getVertices() + "\n\n";
-   return allString;
-}
-
-Vertex* Rectangle::getPtIn(){
-
-}
-
+// Vertex* Rectangle::getPtIn(){
+//
+// }
+//
 // Vertex* Rectangle::getPtOn(){
 //    //TODO
 //    int edgePts = 0; // count number of points between vertices, excluding vertices
@@ -170,6 +150,26 @@ Vertex* Rectangle::getPtIn(){
 //    return totalVTXArr;
 // }
 
+float Rectangle::computeArea(){
+   float rctArea = 0.0;
+   int j = noOfVertices-1;
+   for (int i = 0; i < noOfVertices; i++) {
+      rctArea += (vtxArray[j]->getVertexX() + vtxArray[i]->getVertexX()) * (vtxArray[j]->getVertexY() - vtxArray[i]->getVertexY());
+      j = i;
+   }
+
+   rctArea = abs(rctArea/2.0);
+   //TODO
+   return rctArea;
+}
+
+string Rectangle::toString(){
+   string allString = "";
+   allString = basicToString();
+   allString = allString + "\n" + getVertices() + "\n\n";
+   return allString;
+}
+
 bool Rectangle::isPointInShape(Vertex vtx){
    //TODO
    int pointX = vtx.getVertexX();
@@ -196,7 +196,7 @@ bool Rectangle::isPointInShape(Vertex vtx){
          return false;
       }
 
-      //Easy method pt1
+      //Gets the max and min points for the shape
       if (aX < xMin) {
          xMin = aX;
       } else if (bX < xMin) {
