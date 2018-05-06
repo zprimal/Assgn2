@@ -49,8 +49,8 @@ string Rectangle::getVertices(){
 
 float Rectangle::computeArea(){
    float rctArea = 0.0;
-   int j = 3;
-   for (int i = 0; i < 4; i++) {
+   int j = noOfVertices-1;
+   for (int i = 0; i < noOfVertices; i++) {
       rctArea += (vtxArray[j]->getVertexX() + vtxArray[i]->getVertexX()) * (vtxArray[j]->getVertexY() - vtxArray[i]->getVertexY());
       j = i;
    }
@@ -179,7 +179,7 @@ bool Rectangle::isPointInShape(Vertex vtx){
    //Get range of pts
    for (int i = 0; i < noOfVertices; i++) {
       int j = i + 1;
-      if (i == 3) {
+      if (i == noOfVertices-1) {
          j = 0;
       }
       int aX = vtxArray[i]->getVertexX();
