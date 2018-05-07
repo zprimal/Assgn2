@@ -1,6 +1,6 @@
 //Assign.cpp
 // Compile as:
-// g++ -std=c++11 Vertex.cpp ShapeTwoD.cpp Rectangle.cpp Assgn2.cpp -o Assgn2.exe
+// g++ -std=c++11 Vertex.cpp ShapeTwoD.cpp Rectangle.cpp Cross.cpp Assgn2.cpp -o Assgn2.exe
 
 #include "Assgn2.h"
 

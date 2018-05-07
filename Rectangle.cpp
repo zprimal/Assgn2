@@ -174,7 +174,8 @@ bool Rectangle::isPointInShape(Vertex vtx){
    //TODO
    int pointX = vtx.getVertexX();
    int pointY = vtx.getVertexY();
-   int xMin, yMin, xMax, yMax, noOfPts;
+   int xMin, yMin, xMax, yMax;
+   int noOfPts = 0;
 
    //Get range of pts
    for (int i = 0; i < noOfVertices; i++) {
@@ -187,13 +188,11 @@ bool Rectangle::isPointInShape(Vertex vtx){
       int aY = vtxArray[i]->getVertexY();
       int bY = vtxArray[j]->getVertexY();
 
-      if (aX == bX) {
-         noOfPts = noOfPts + abs(aY - bY);
-      } else if (aY == bY) {
-         noOfPts = noOfPts + abs(aX - bY);
-      } else {
-         cout << "Error: shape cannot be computed!" << endl;
-         return false;
+      if (i == 0) {
+         xMin = aX;
+         xMax = aX;
+         yMin = aY;
+         yMax = aY;
       }
 
       //Gets the max and min points for the shape
@@ -223,7 +222,6 @@ bool Rectangle::isPointInShape(Vertex vtx){
    } // END of for loop
 
    if (pointX <= xMin || pointY <= yMin || pointX >= xMax || pointY >= yMax) {
-      cout << "Point exceeds shape " << name << endl;
       return false;
    } else {
       return true;
@@ -332,9 +330,9 @@ bool Rectangle::isPointOnShape(Vertex vtx){
    //    /* code */
    // }
 
-   for (int i = 0; i < 4; i++) {
+   for (int i = 0; i < noOfVertices; i++) {
       int j = i + 1;
-      if (i == 3) {
+      if (i == noOfVertices-1) {
          j = 0;
       }
 
@@ -343,7 +341,7 @@ bool Rectangle::isPointOnShape(Vertex vtx){
       int bX = vtxArray[j]->getVertexX();
       int aY = vtxArray[i]->getVertexY();
       int bY = vtxArray[j]->getVertexY();
-      string XorY;//Checks which exis is the line parallel to
+      string XorY;//Checks which axis is the line parallel to
 
       //If point is on vertices
       if (pointX == aX && pointY == aY) {
