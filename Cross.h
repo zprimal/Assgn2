@@ -13,7 +13,7 @@ using namespace std;
 
 class Cross: public ShapeTwoD{
 private:
-   Vertex* vtxArray[4];
+   Vertex* vtxArray[12];
 public:
    Cross(void);
    Cross(string, string, Vertex arr[12]);

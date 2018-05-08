@@ -9,6 +9,7 @@
 #include "Vertex.h"
 #include "ShapeTwoD.h"
 #include "Rectangle.h"
+#include "Cross.h"
 
 using std::cin;
 using std::endl;

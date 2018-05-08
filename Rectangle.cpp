@@ -166,7 +166,7 @@ float Rectangle::computeArea(){
 string Rectangle::toString(){
    string allString = "";
    allString = basicToString();
-   allString = allString + "\n" + getVertices() + "\n\n";
+   allString = allString + "\nVertices:\n" + getVertices() + "\n\n";
    return allString;
 }
 
@@ -387,12 +387,12 @@ bool Rectangle::isPointOnShape(Vertex vtx){
          for (int p = 0; p < pointDist; p++) {
             if (aX < bX) {
                if (pointX == aX+p) {
-                  cout << "Entry [" << pointX << ":" << pointY << "]: " << aX+p << ":" << aY << endl;
+                  //cout << "Entry [" << pointX << ":" << pointY << "]: " << aX+p << ":" << aY << endl;
                   return true;
                }
             } else if (aX > bX) {
                if (pointX == bX+p) {
-                 cout << "Entry [" << pointX << ":" << pointY << "]: " << bX+p << ":" << aY << endl;
+                 //cout << "Entry [" << pointX << ":" << pointY << "]: " << bX+p << ":" << aY << endl;
                  return true;
               }
             }

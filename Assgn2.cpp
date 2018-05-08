@@ -139,9 +139,9 @@ int addData(){
       return 0;
    } else if (addNoVTX == 12) {
       // TODO
-      // globalS2D[GS2Dcap] = new Cross(addName, addSpaceType, addVTX);
-      // GS2Dcap++;
-      // return 0;
+      globalS2D[GS2Dcap] = new Cross(addName, addSpaceType, addVTX);
+      GS2Dcap++;
+      return 0;
    }
    printf("This cannot continue!\n");
 }
@@ -241,10 +241,10 @@ int isPointIn(){
 
    for (int i = 0; i < GS2Dcap; i++) {
       if (globalS2D[i]->isPointInShape(Vertex(isX, isY))) {
-         cout << "Point [" << isX << ", " << isY << "] is on " << globalS2D[i]->getName() << endl;
+         cout << "Point [" << isX << ":" << isY << "] is in " << globalS2D[i]->getName() << endl;
          return 0;
       }
    }
-   cout << "Point [" << isX << ", " << isY << "] is not on any point within a shape." << endl;
+   cout << "Point [" << isX << ":" << isY << "] is not on any point within a shape." << endl;
    return 1;
 }

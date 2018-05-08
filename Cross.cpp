@@ -24,7 +24,7 @@ Cross::~Cross(){
    //Destructor
 }
 
-int Cross::setVertex(string setName, string setST, Vertex newVArr[4]){
+int Cross::setVertex(string setName, string setST, Vertex newVArr[12]){
    name = setName;
    noOfVertices = 12;
    spaceType =  setST;
@@ -70,7 +70,7 @@ float Cross::computeArea(){
 string Cross::toString(){
    string allString = "";
    allString = basicToString();
-   allString = allString + "Vertices:\n" + getVertices() + "\n\n";
+   allString = allString + "\nVertices:\n" + getVertices() + "\n\n";
    return allString;
 }
 
