@@ -45,11 +45,11 @@ string Cross::getVertices(){
    return vtxString;
 }
 
-Vertex* Cross::getPtIn(){
+string Cross::getPtIn(){
 
 }
 
-Vertex* Cross::getPtOn(){
+string Cross::getPtOn(){
 
 }
 
@@ -82,7 +82,7 @@ bool Cross::isPointInShape(Vertex vtx){
    cout << "C1" << endl;
    for (int i = 0; i < noOfVertices; i++) {
       int j = i + 1;
-      if (i == noOfVertices) {
+      if (i == noOfVertices-1) {
          j = 0;
       }
 
@@ -135,7 +135,7 @@ bool Cross::isPointInShape(Vertex vtx){
    cout << "C2" << endl;
    for (int i = 0; i < noOfVertices; i++) {
       int j = i + 1;
-      if (i == noOfVertices) {
+      if (i == noOfVertices-1) {
          j = 0;
       }
 
@@ -207,7 +207,7 @@ bool Cross::isPointOnShape(Vertex vtx){
 
    for (int i = 0; i < noOfVertices; i++) {
       int j = i + 1;
-      if (i == noOfVertices) {
+      if (i == noOfVertices-1) {
          j = 0;
       }
 

@@ -20,8 +20,8 @@ public:
    ~Rectangle();
    int setVertex(string, string, Vertex arr[4]);
    string getVertices();
-   Vertex* getPtIn();
-   Vertex* getPtOn();
+   string getPtIn();
+   string getPtOn();
 
    //virtual functions
    float computeArea();

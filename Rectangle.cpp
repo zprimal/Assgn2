@@ -47,108 +47,112 @@ string Rectangle::getVertices(){
    return vtxString;
 }
 
-// Vertex* Rectangle::getPtIn(){
-//
-// }
-//
-// Vertex* Rectangle::getPtOn(){
-//    //TODO
-//    int edgePts = 0; // count number of points between vertices, excluding vertices
-//
-//    // Counts points on each edges, excluding the vertices
-//    for (int i = 0; i < 4; i++){
-//       int j = i + 1;
-//       if (i == 3) {
-//          j = 0;
-//       }
-//
-//       int aX = vtxArray[i]->getVertexX();
-//       int bX = vtxArray[j]->getVertexX();
-//       int aY = vtxArray[i]->getVertexY();
-//       int bY = vtxArray[j]->getVertexY();
-//
-//       if (aX == bX) {
-//          edgePts = edgePts + abs(aY - bY) - 1;
-//       } else if (aY == bY) {
-//          edgePts = edgePts + abs(aX - bX) - 1;
-//       } else {
-//          cout << "Error: shape cannot be computed!" << endl;
-//          return Vertex(0,0);
-//       }
-//    }
-//
-//    if (!edgePts > 0) {
-//       cout << "Error: shape cannot be computed!" << endl;
-//       return Vertex(0,0);
-//    }
-//
-//    cout << "edgePts: " << edgePts << endl;
-//    Vertex *totalVTXArr[edgePts+1];
-//    totalVTXArr[0] = new Vertex(edgePts, edgePts); //First vertex holds array size;
-//    int totalInt = 1;
-//    for (int i = 0; i < 4; i++) {
-//       int j = i + 1;
-//       if (i == 3) {
-//          j = 0;
-//       }
-//
-//       int pointDist = 0;
-//       int aX = vtxArray[i]->getVertexX();
-//       int bX = vtxArray[j]->getVertexX();
-//       int aY = vtxArray[i]->getVertexY();
-//       int bY = vtxArray[j]->getVertexY();
-//       string XorY;//Checks which axis is the line parallel to
-//
-//       //Checks for number of coodinates which describe the edges of the Rectangle
-//       if (aX == bX) {
-//          pointDist = abs(aY - bY) - 1;
-//          XorY = "X";
-//       } else if (aY == bY) {
-//          pointDist = abs(aX - bY) - 1;
-//          XorY = "Y";
-//       } else {
-//          cout << "Error: shape cannot be computed!" << endl;
-//          return Vertex(0,0);
-//       }
-//
-//       if (pointDist == 0) {
-//          cout << "Error: shape cannot be computed!" << endl;
-//          return Vertex(0,0);
-//       }
-//
-//       if (XorY == "X") { //Parallel to the X-axis
-//          for (int p = 1; p < pointDist; p++) {
-//             if (aY < bY) {
-//                totalVTXArr[totalInt] = new Vertex(aX, aY+p);
-//                totalInt++;
-//             } else if (aY > bY) {
-//                totalVTXArr[totalInt] = new Vertex(aX, bY+p);
-//                totalInt++;
-//             } else {
-//                printf("Huh?\n");
-//             }
-//          }
-//       } else if (XorY == "Y") { //Parallel to the Y-axis
-//          for (int p = 1; p < pointDist; p++) {
-//             if (aX < bX) {
-//                totalVTXArr[totalInt] = new Vertex(aX+p, aY);
-//                totalInt++;
-//             } else if (aX > bX) {
-//                totalVTXArr[totalInt] = new Vertex(bX+p, aY);
-//                totalInt++;
-//             } else {
-//                printf("Huh?\n");
-//             }
-//          }
-//       } else {
-//          //cout << "Error: shape cannot be computed!" << endl;
-//          //return false;
-//       }
-//       //Next edge
-//    }
-//
-//    return totalVTXArr;
-// }
+string Rectangle::getPtIn(){
+   string result;
+   return result;
+}
+
+string Rectangle::getPtOn(){
+   int edgePts = 0; // count number of points between vertices, excluding vertices
+
+   // Counts points on each edges, excluding the vertices
+   for (int i = 0; i < noOfVertices; i++){
+      int j = i + 1;
+      if (i == noOfVertices-1) {
+         j = 0;
+      }
+
+      int aX = vtxArray[i]->getVertexX();
+      int bX = vtxArray[j]->getVertexX();
+      int aY = vtxArray[i]->getVertexY();
+      int bY = vtxArray[j]->getVertexY();
+
+      if (aX == bX) {
+         edgePts = edgePts + abs(aY - bY) - 1;
+      } else if (aY == bY) {
+         edgePts = edgePts + abs(aX - bX) - 1;
+      } else {
+         cout << "Error: shape cannot be computed!" << endl;
+         return "0";
+      }
+   } // end for loop
+
+   if (!edgePts > 0) {
+      cout << "Error: shape cannot be computed!" << endl;
+      return "0";
+   }
+
+   cout << "edgePts: " << edgePts << endl;
+   Vertex *totalVTXArr[edgePts];
+   int totalInt = 0;
+   for (int i = 0; i < noOfVertices; i++) {
+      int j = i + 1;
+      if (i == noOfVertices-1) {
+         j = 0;
+      }
+
+      int pointDist = 0;
+      int aX = vtxArray[i]->getVertexX();
+      int bX = vtxArray[j]->getVertexX();
+      int aY = vtxArray[i]->getVertexY();
+      int bY = vtxArray[j]->getVertexY();
+      string XorY;//Checks which axis is the line parallel to
+
+      //Checks for number of coodinates which describe the edges of the Rectangle
+      if (aX == bX) {
+         pointDist = abs(aY - bY);
+         XorY = "X";
+      } else if (aY == bY) {
+         pointDist = abs(aX - bY);
+         XorY = "Y";
+      } else {
+         cout << "Error: shape cannot be computed!" << endl;
+         return "0";
+      }
+
+      if (pointDist == 0) {
+         cout << "Error: shape cannot be computed!" << endl;
+         return "0";
+      }
+      // cout << "pointDist: " << pointDist << endl;
+      if (XorY == "X") { //Parallel to the X-axis
+         for (int p = 1; p < pointDist; p++) {
+            if (aY < bY) {
+               // cout << "aX: " << aX << ", aY+p: " << aY+p << "\n";
+               totalVTXArr[totalInt] = new Vertex(aX, aY+p);
+               totalInt++;
+            } else if (aY > bY) {
+               // cout << "aX: " << aX << ", bY+p: " << bY+p << "\n";
+               totalVTXArr[totalInt] = new Vertex(aX, bY+p);
+               totalInt++;
+            } else {
+               printf("Huh?\n");
+            }
+         }
+      } else if (XorY == "Y") { //Parallel to the Y-axis
+         for (int p = 1; p < pointDist; p++) {
+            if (aX < bX) {
+               // cout << "aX+p: " << aX+p << ", aY: " << aY << "\n";
+               totalVTXArr[totalInt] = new Vertex(aX+p, aY);
+               totalInt++;
+            } else if (aX > bX) {
+               // cout << "bX+p: " << bX+p << ", aY: " << aY << "\n";
+               totalVTXArr[totalInt] = new Vertex(bX+p, aY);
+               totalInt++;
+            } else {
+               printf("Huh?\n");
+            }
+         }
+      }
+      //Next edge
+   }
+
+   string result = "";
+   for (int i = 0; i < edgePts; i++) {
+      result = result + "[" + to_string(totalVTXArr[i]->getVertexX()) + "," + to_string(totalVTXArr[i]->getVertexY()) + "]\n";
+   }
+   return result;
+}
 
 float Rectangle::computeArea(){
    float rctArea = 0.0;
@@ -166,7 +170,7 @@ float Rectangle::computeArea(){
 string Rectangle::toString(){
    string allString = "";
    allString = basicToString();
-   allString = allString + "\nVertices:\n" + getVertices() + "\n\n";
+   allString = allString + "\nVertices:\n" + getVertices() + "\nPoints on shape:\n" + getPtOn();
    return allString;
 }
 
@@ -180,7 +184,7 @@ bool Rectangle::isPointInShape(Vertex vtx){
    //Get range of pts
    for (int i = 0; i < noOfVertices; i++) {
       int j = i + 1;
-      if (i == noOfVertices-1) {
+      if (i == noOfVertices) {
          j = 0;
       }
       int aX = vtxArray[i]->getVertexX();
@@ -227,94 +231,6 @@ bool Rectangle::isPointInShape(Vertex vtx){
       return true;
    }
 
-   // Vertex ptArr[noOfPts];
-   // int counter = 0;
-   // for (int i = 0; i < 4; i++) {
-   //    int j = i + 1;
-   //    if (i == 3) {
-   //       j = 0;
-   //    }
-   //
-   //    int pointDist = 0;
-   //    int aX = vtxArray[i]->getVertexX();
-   //    int bX = vtxArray[j]->getVertexX();
-   //    int aY = vtxArray[i]->getVertexY();
-   //    int bY = vtxArray[j]->getVertexY();
-   //    string XorY;//Checks which exis is the line parallel to
-   //
-   //    //If point is on vertices
-   //    if (pointX == aX && pointY == aY) {
-   //       cout << "Entry [" << pointX << ":" << pointY << "]: " << aX << ":" << aY << endl;
-   //       return false;
-   //    } else if (pointX == bX && pointY == bY) {
-   //       cout << "Entry [" << pointX << ":" << pointY << "]: " << bX << ":" << bY << endl;
-   //       return false;
-   //    }
-   //    //Checks for number of points which describe the edges of the Rectangle
-   //    if (aX == bX) {
-   //       pointDist = abs(aY - bY);
-   //       XorY = "X";
-   //    } else if (aY == bY) {
-   //       pointDist = abs(aX - bY);
-   //       XorY = "Y";
-   //    } else {
-   //       cout << "Error: shape cannot be computed!" << endl;
-   //       return false;
-   //    }
-   //
-   //    if (pointDist == 0) {
-   //       cout << "Error: Shape contains no points!" << endl;
-   //       return false;
-   //    }
-   //
-   //    if (XorY == "X") {
-   //       for (int p = 0; p < pointDist; p++) {
-   //          if (aY < bY) {
-   //             ptArr[counter] = Vertex(aX,aY+p);
-   //             counter++;
-   //             if (pointY == aY+p) {
-   //                cout << "Error: Point is on shape!" << endl;
-   //                return false;
-   //             }
-   //          } else if (aY > bY) {
-   //             ptArr[counter] = Vertex(aX,bY+p);
-   //             counter++;
-   //             if (pointY == bY+p) {
-   //               cout << "Error: Point is on shape!" << endl;
-   //               return false;
-   //            }
-   //          }
-   //       }
-   //    } else if (XorY == "Y") {
-   //       for (int p = 0; p < pointDist; p++) {
-   //          if (aX < bX) {
-   //             ptArr[counter] = Vertex(aX+p,aY);
-   //             counter++;
-   //             if (pointX == aX+p) {
-   //                cout << "Error: Point is on shape!" << endl;
-   //                return false;
-   //             }
-   //          } else if (aX > bX) {
-   //             ptArr[counter] = Vertex(bX+p,aY);
-   //             counter++;
-   //             if (pointX == bX+p) {
-   //                cout << "Error: Point is on shape!" << endl;
-   //                return false;
-   //            }
-   //          }
-   //       }
-   //    }
-   //    //Next edge
-   // } // END of for loop
-   //
-   // //puke ptArr[]
-   // cout << "counter: " << counter << endl;
-   // cout << "noOfPts: " << noOfPts << endl;
-   // for (int i = 0; i < noOfPts; i++) {
-   //    /* code */
-   // }
-
-   //Get points on edge
    return false;
 }
 
@@ -322,14 +238,7 @@ bool Rectangle::isPointOnShape(Vertex vtx){
    //TODO
    int pointX = vtx.getVertexX();
    int pointY = vtx.getVertexY();
-   // Vertex *vtxPtr = (*this).getPtOn();
-   // int noOfPts = *vtxPtr;
-   // cout << "noOfPts: " << noOfPts << endl;
-   //
-   // for (int i = 1; i < noOfPts; i++) {
-   //    /* code */
-   // }
-
+   cout << "C1" << endl;
    for (int i = 0; i < noOfVertices; i++) {
       int j = i + 1;
       if (i == noOfVertices-1) {
@@ -345,10 +254,10 @@ bool Rectangle::isPointOnShape(Vertex vtx){
 
       //If point is on vertices
       if (pointX == aX && pointY == aY) {
-         cout << "ON VERTICE: Entry [" << pointX << ":" << pointY << "]: " << aX << ":" << aY << endl;
+         cout << "ON VERTIX: Entry [" << pointX << ":" << pointY << "]: " << aX << ":" << aY << endl;
          return false;
       } else if (pointX == bX && pointY == bY) {
-         cout << "ON VERTICE: Entry [" << pointX << ":" << pointY << "]: " << bX << ":" << bY << endl;
+         cout << "ON VERTIX: Entry [" << pointX << ":" << pointY << "]: " << bX << ":" << bY << endl;
          return false;
       }
       //Checks for number of points which describe the edges of the Rectangle
@@ -367,18 +276,17 @@ bool Rectangle::isPointOnShape(Vertex vtx){
          cout << "Error: shape cannot be computed!" << endl;
          return false;
       }
+      cout << "C2" << endl;
 
       //Vertex tmpVTXArr[pointDist];
       if (XorY == "X" && pointX == aX) {
          for (int p = 0; p < pointDist; p++) {
             if (aY < bY) {
                if (pointY == aY+p) {
-                  cout << "Entry [" << pointX << ":" << pointY << "]: " << aX << ":" << aY+p << endl;
                   return true;
                }
             } else if (aY > bY) {
                if (pointY == bY+p) {
-                 cout << "Entry [" << pointX << ":" << pointY << "]: " << aX << ":" << bY+p << endl;
                  return true;
               }
             }
@@ -387,22 +295,20 @@ bool Rectangle::isPointOnShape(Vertex vtx){
          for (int p = 0; p < pointDist; p++) {
             if (aX < bX) {
                if (pointX == aX+p) {
-                  //cout << "Entry [" << pointX << ":" << pointY << "]: " << aX+p << ":" << aY << endl;
                   return true;
                }
             } else if (aX > bX) {
                if (pointX == bX+p) {
-                 //cout << "Entry [" << pointX << ":" << pointY << "]: " << bX+p << ":" << aY << endl;
                  return true;
               }
             }
          }
-      } else {
-         //cout << "Error: shape cannot be computed!" << endl;
-         //return false;
       }
+      cout << "C3" << endl;
+
       //Next edge
-   }
+   } //end for loop
+   cout << "C4" << endl;
    cout << "Point is not on shape!" << endl;
    return false;
 }
