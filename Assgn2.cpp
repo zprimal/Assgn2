@@ -149,18 +149,52 @@ int addData(){
 int computeAllArea(){
    for (int i = 0; i < GS2Dcap; i++) {
       printf("Shape [%d]\n", i);
-      cout << globalS2D[i]->getName() << ": " << globalS2D[i]->computeArea() << "\n======\n" << endl;
+      cout << globalS2D[i]->getName() << ": " << globalS2D[i]->computeArea() << "\n=================================================\n" << endl;
    }
 }
 
 int printReport(){
    printf("> printReport()\n");
-   //TODO
+   for (int i = 0; i < GS2Dcap; i++) {
+      cout << globalS2D[i]->getName() << ":\n" << globalS2D[i]->computeArea() << "\n------------------------------" << endl;
+      cout << globalS2D[i]->toString() << "\n=============================\n" << endl;
+   }
+   return 0;
 }
 
 int printSortedData(){
    printf("> printSortedData()\n");
-   //TODO
+   ShapeTwoD S2DAreaArr[GS2Dcap];
+
+   // Gets the area of all shapes into arr
+   for (int i = 0; i < GS2Dcap; i++) {
+      S2DAreaArr[i] = *globalS2D[i]->computeArea();
+   }
+
+   // bubble sort Area
+   for (int i = 0; i < GS2Dcap-1; i++) {
+      if (S2DAreaArr[i]->computeArea() < S2DAreaArr[i+1]->computeArea()) {
+         PointTwoD* tmpS2D = S2DAreaArr[i];
+         S2DAreaArr[i] = S2DAreaArr[i+1];
+         S2DAreaArr[i+1] = tmpS2D;
+         i=0;
+      }
+   }
+
+   for (int i = 0; i < GS2Dcap; i++) {
+      if (S2DAreaArr[i]->getspaceType() == "WS") {
+         cout << S2DAreaArr[i]->getName() << ":\n" << S2DAreaArr[i]->computeArea() << "\n------------------------------" << endl;
+         cout << S2DAreaArr[i]->toString() << "\n=============================\n" << endl;
+      }
+   }
+
+   for (int i = 0; i < GS2Dcap; i++) {
+      if (S2DAreaArr[i]->getspaceType() == "NS") {
+         cout << S2DAreaArr[i]->getName() << ":\n" << S2DAreaArr[i]->computeArea() << "\n------------------------------" << endl;
+         cout << S2DAreaArr[i]->toString() << "\n=============================\n" << endl;
+      }
+   }
+   return 0;
 }
 
 int printAllData(){
@@ -168,14 +202,13 @@ int printAllData(){
    //TODO
    for (int i = 0; i < GS2Dcap; i++) {
       printf("Shape [%d]\n", i);
-      cout << globalS2D[i]->toString() << "\n======\n" << endl;
+      cout << globalS2D[i]->toString() << "\n=============================\n" << endl;
    }
    return 0;
 }
 
 int isPointOn(){
    printf("> isPointOn()\n");
-   //TODO
    string isString;
    int isX, isY;
    printf("Enter X coordinate\n");
@@ -213,7 +246,6 @@ int isPointOn(){
 
 int isPointIn(){
    printf("> isPointIn()\n");
-   //TODO
    string isString;
    int isX, isY;
    printf("Enter X coordinate\n");

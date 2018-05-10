@@ -39,9 +39,9 @@ string Rectangle::getVertices(){
    string vtxString = "Vertices:\n";
    for (int i = 0; i < noOfVertices; i++) {
       if (i == 0) {
-         vtxString = vtxArray[i]->toString();
+         vtxString = "Point[" + to_string(i) + "]: " + vtxArray[i]->toString();
       } else {
-         vtxString = vtxString + "\n" + vtxArray[i]->toString();
+         vtxString = vtxString + "\nPoint[" + to_string(i) + "]: " + vtxArray[i]->toString();
       }
    }
    return vtxString;
@@ -124,7 +124,11 @@ string Rectangle::getPtIn(){
    }
 
    for (int i = 0; i < inShapeSize; i++) {
-      result = result + "[" + to_string(inShapeVtxArr[i].getVertexX()) + "," + to_string(inShapeVtxArr[i].getVertexY()) + "]\n";
+      if (i == 0) {
+         result = "[" + to_string(inShapeVtxArr[i].getVertexX()) + "," + to_string(inShapeVtxArr[i].getVertexY()) + "]";
+      } else {
+         result = result + ", [" + to_string(inShapeVtxArr[i].getVertexX()) + "," + to_string(inShapeVtxArr[i].getVertexY()) + "]";
+      }
    }
 
    return result;
@@ -227,7 +231,11 @@ string Rectangle::getPtOn(){
 
    string result = "";
    for (int i = 0; i < edgePts; i++) {
-      result = result + "[" + to_string(totalVTXArr[i].getVertexX()) + "," + to_string(totalVTXArr[i].getVertexY()) + "]\n";
+      if (i == 0) {
+         result = "[" + to_string(totalVTXArr[i].getVertexX()) + "," + to_string(totalVTXArr[i].getVertexY()) + "]";
+      } else {
+         result = result + ", [" + to_string(totalVTXArr[i].getVertexX()) + "," + to_string(totalVTXArr[i].getVertexY()) + "]";
+      }
    }
    return result;
 }
@@ -241,7 +249,6 @@ float Rectangle::computeArea(){
    }
 
    rctArea = abs(rctArea/2.0);
-   //TODO
    return rctArea;
 }
 
