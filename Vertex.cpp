@@ -35,6 +35,6 @@ int Vertex::getVertexY(){
 }
  string Vertex::toString(){
     string allString = "";
-    allString = "[" + to_string(aX) + ":" + to_string(aY) + "]";
+    allString = "[" + to_string(aX) + "," + to_string(aY) + "]";
     return allString;
 }

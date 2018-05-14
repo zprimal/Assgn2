@@ -49,11 +49,10 @@ string Cross::getVertices(){
 string Cross::getPtIn(){
    string result = "";
    int xMin, yMin, xMax, yMax;
-   //DID YOU THINK IT WOULD BE THIS EASY?
    // gets the 4 X-points which the shape touches on TRUNC
-   
+   int xRangeArr[4];
    // gets the 4 Y-points which the shape touches on TRUNC
-
+   int yRangeArr[4];
 
    //Get min/max range of shape
    for (int i = 0; i < noOfVertices; i++) {
@@ -100,16 +99,48 @@ string Cross::getPtIn(){
    } // END of for loop
 
    //Get the max and min points for the X and Y ranges TRUNC
-
+   xRangeArr[0] = xMin;
+   xRangeArr[3] = xMax;
+   yRangeArr[0] = yMin;
+   yRangeArr[3] = yMax;
 
    //Get the inbetweens for the XY ranges TRUNC
+   for (int i = 0; i < noOfVertices; i++) {
+      int aX = vtxArray[i]->getVertexX();
+      int aY = vtxArray[i]->getVertexY();
 
+      if (i == 0) {
+         xRangeArr[1] = xMax;
+         xRangeArr[2] = xMin;
+         yRangeArr[1] = yMax;
+         yRangeArr[2] = xMin;
+      }
 
-   //Debug TRUNC
+      if (xRangeArr[1] > aX && aX != xMin && aX != xMax) {
+         xRangeArr[1] = aX;
+      }
 
+      if (yRangeArr[1] > aY && aY != yMin && aY != yMax) {
+         yRangeArr[1] = aY;
+      }
+
+      if (xRangeArr[2] < aX && aX != xMin && aX != xMax) {
+         xRangeArr[2] = aX;
+      }
+
+      if (yRangeArr[2] < aY && aY != yMin && aY != yMax) {
+         yRangeArr[2] = aY;
+      }
+   }
 
    // Calculate number of points in Shape TRUNC
-
+   int inShapeSize = 0;
+   inShapeSize = abs((xRangeArr[1] - xRangeArr[0] - 1) * (yRangeArr[2] - yRangeArr[1] - 1));               // 1
+   inShapeSize = inShapeSize + abs((xRangeArr[2] - xRangeArr[1] - 1) * (yRangeArr[3] - yRangeArr[2] - 1)); // 2
+   inShapeSize = inShapeSize + abs((xRangeArr[2] - xRangeArr[1] - 1) * (yRangeArr[2] - yRangeArr[1] - 1)); // 3
+   inShapeSize = inShapeSize + abs((xRangeArr[2] - xRangeArr[1] - 1) * (yRangeArr[1] - yRangeArr[0] - 1)); // 4
+   inShapeSize = inShapeSize + abs((xRangeArr[3] - xRangeArr[2] - 1) * (yRangeArr[2] - xRangeArr[1] - 1)); // 5
+   inShapeSize = inShapeSize + abs((xRangeArr[2] - xRangeArr[1] - 1)*2) + abs((yRangeArr[2] - yRangeArr[1] - 1)*2); // get points in intersections
 
    Vertex inShapeVtxArr[inShapeSize];
    int inShapeItr = 0;
@@ -117,10 +148,52 @@ string Cross::getPtIn(){
    int yRange = yMax-yMin-1;
 
    //Obtains points in shape from top-down, left-right TRUNC
+   for (int y = 1; y < yRange+1; y++) {
+      for (int x = 1; x < xRange+1; x++) {
+         int xIn = xMin+x;
+         int yIn = yMin+y;
+         if (xIn > xRangeArr[0] && xIn < xRangeArr[1] && yIn > yRangeArr[1] && yIn < yRangeArr[2]) {
+            //1
+            inShapeVtxArr[inShapeItr] = Vertex(xIn, yIn);
+            inShapeItr++;
+         } else if (xIn > xRangeArr[1] && xIn < xRangeArr[2] && yIn > yRangeArr[2] && yIn < yRangeArr[3]){
+            //2
+            inShapeVtxArr[inShapeItr] = Vertex(xIn, yIn);
+            inShapeItr++;
+         } else if (xIn > xRangeArr[1] && xIn < xRangeArr[2] && yIn > yRangeArr[1] && yIn < yRangeArr[2]){
+            //3
+            inShapeVtxArr[inShapeItr] = Vertex(xIn, yIn);
+            inShapeItr++;
+         } else if (xIn > xRangeArr[1] && xIn < xRangeArr[2] && yIn > yRangeArr[0] && yIn < yRangeArr[1]){
+            //4
+            inShapeVtxArr[inShapeItr] = Vertex(xIn, yIn);
+            inShapeItr++;
+         } else if (xIn > xRangeArr[2] && xIn < xRangeArr[3] && yIn > yRangeArr[1] && yIn < yRangeArr[2]){
+            //5
+            inShapeVtxArr[inShapeItr] = Vertex(xIn, yIn);
+            inShapeItr++;
+         } else if (xIn > xRangeArr[1] && xIn < xRangeArr[2] && (yIn == yRangeArr[1] || yIn == yRangeArr[2])) {
+            // get points in intersections X lines
+            inShapeVtxArr[inShapeItr] = Vertex(xIn, yIn);
+            inShapeItr++;
+         } else if ((xIn == xRangeArr[1] || xIn == xRangeArr[2]) && yIn > yRangeArr[1] && yIn < yRangeArr[2]){
+            // get points in intersections for Y lines
+            inShapeVtxArr[inShapeItr] = Vertex(xIn, yIn);
+            inShapeItr++;
+         }
 
+         if (inShapeItr > inShapeSize) {
+            cout << "For loop should be ending now." << endl;
+         }
+      }
+   }
 
    for (int i = 0; i < inShapeSize; i++) {
-      result = result + "[" + to_string(inShapeVtxArr[i].getVertexX()) + "," + to_string(inShapeVtxArr[i].getVertexY()) + "]\n";
+      if (i == 0) {
+         result = "[" + to_string(inShapeVtxArr[i].getVertexX()) + "," + to_string(inShapeVtxArr[i].getVertexY()) + "]";
+      } else {
+         result = result + ", [" + to_string(inShapeVtxArr[i].getVertexX()) + "," + to_string(inShapeVtxArr[i].getVertexY()) + "]";
+      }
    }
    return result;
 }
@@ -155,7 +228,7 @@ string Cross::getPtOn(){
       return "1";
    }
 
-   cout << "edgePts: " << edgePts << endl;
+   //cout << "edgePts: " << edgePts << endl;
    Vertex totalVTXArr[edgePts];
    int totalInt = 0;
    for (int i = 0; i < noOfVertices; i++) {
@@ -222,7 +295,11 @@ string Cross::getPtOn(){
 
    string result = "";
    for (int i = 0; i < edgePts; i++) {
-      result = result + "[" + to_string(totalVTXArr[i].getVertexX()) + "," + to_string(totalVTXArr[i].getVertexY()) + "]\n";
+      if (i == 0) {
+         result = "[" + to_string(totalVTXArr[i].getVertexX()) + "," + to_string(totalVTXArr[i].getVertexY()) + "]";
+      } else {
+         result = result + ", [" + to_string(totalVTXArr[i].getVertexX()) + "," + to_string(totalVTXArr[i].getVertexY()) + "]";
+      }
    }
    return result;
 }
@@ -243,7 +320,7 @@ float Cross::computeArea(){
 string Cross::toString(){
    string allString = "";
    allString = basicToString();
-   allString = allString + "\nVertices:\n" + getVertices() + "\nPoints on shape:\n" + getPtOn() + "\nPoints in shape:\n" + getPtIn();
+   allString = allString + "\n\nArea:\n" + to_string(computeArea()) + " million KM^2\n\nVertices:\n" + getVertices() + "\n\nPoints on shape:\n" + getPtOn() + "\n\nPoints in shape:\n" + getPtIn();
    return allString;
 }
 
@@ -300,7 +377,7 @@ bool Cross::isPointInShape(Vertex vtx){
       }
    }
 
-   //Makes a rectangle around shape and checks if the point is within the rectangle
+   //Makes a rectangle around shape and checks if the point is within said rectangle
    if (pointX <= xMin || pointY <= yMin || pointX >= xMax || pointY >= yMax) {
       cout << "Point exceeds shape " << name << endl;
       return false;
@@ -366,7 +443,6 @@ bool Cross::isPointInShape(Vertex vtx){
       cout << "Point is in shape" << endl;
       return true;
    }
-   cout << "C4" << endl;
    cout << "This should not be printed" << endl;
    return false;
 }

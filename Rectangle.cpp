@@ -100,11 +100,11 @@ string Rectangle::getPtIn(){
    xRange = xMax-xMin-1;
    yRange = yMax-yMin-1;
    if (!xRange > 0) {
-      return "1";
+      return "No Pts";
    }
 
    if (!yRange > 0) {
-      return "1";
+      return "No Pts";
    }
    int inShapeSize = xRange * yRange;
    cout << "inShapeSize: " << inShapeSize << endl;
@@ -255,7 +255,7 @@ float Rectangle::computeArea(){
 string Rectangle::toString(){
    string allString = "";
    allString = basicToString();
-   allString = allString + "\nVertices:\n" + getVertices() + "\nPoints on shape:\n" + getPtOn() + "\nPoints in shape:\n" + getPtIn();
+   allString = allString + "\n\nArea:\n" + to_string(computeArea()) + " million KM^2\n\nVertices:\n" + getVertices() + "\n\nPoints on shape:\n" + getPtOn() + "\n\nPoints in shape:\n" + getPtIn();
    return allString;
 }
 
